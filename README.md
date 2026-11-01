@@ -23,7 +23,7 @@ One container, no build step, no npm. Caddy serves the files in `site/`, or prox
 ## What you get
 
 - Security headers, compression, non-root process, health check.
-- Proxy mode keeps the browser's `Host` and `X-Forwarded-Proto`, so upstreams behind it (Hermes Agent's dashboard, for one) see the real public URL. WebSockets pass through.
+- Proxy mode keeps the browser's `Host` and `X-Forwarded-Proto`, so upstreams behind it (Hermes Agent's dashboard, for one) see the real public URL. WebSockets pass through. The portal's own `Authorization` header is stripped before the upstream, so an upstream with its own login never sees or re-challenges it.
 - Nothing secret in the repository. Passwords live only as hashes in Coolify's environment.
 
 ## Local test

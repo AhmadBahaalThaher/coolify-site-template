@@ -43,9 +43,12 @@ CADDY
   fi
   if [ "$MODE" = "proxy" ]; then
     [ -n "${UPSTREAM:-}" ] || { echo "SITE_MODE=proxy needs UPSTREAM" >&2; exit 1; }
+    # The portal's own Basic credentials never reach the upstream: an upstream that answers 401 with its
+    # own challenge would otherwise make the browser re-prompt forever.
     cat <<CADDY
 	reverse_proxy $UPSTREAM {
 		header_up Host {host}
+		header_up -Authorization
 	}
 CADDY
   else
